@@ -46,3 +46,9 @@ gem 'devise', "~> 3.2.1"
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'factory_girl'
+end
