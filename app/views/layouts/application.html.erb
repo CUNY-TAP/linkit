@@ -60,17 +60,33 @@
 
     <div class="container-fluid">
       <div class="row-fluid">
+        
+        <!---Side Nav-->
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header"><%="Welcome #{current_user.email} | " if user_signed_in?%>
+              
                 <% if user_signed_in?%>
                   <%= link_to "Logout", destroy_user_session_path, :method=>:delete%>
                 <% else %>
                   <%= link_to "Login", new_user_session_path %>
                 <%end%>
+              
+
               </li>
-              <li><%= link_to "Link1", "/path1"  %></li>
+              <li>
+
+                <% if user_signed_in? %>
+
+                  <%= link_to "My Links", "/my_links/#{current_user.id}"  %>
+            
+                <% else %>
+                  <%= link_to "Link1", "/path1"  %>
+                <% end %>
+
+
+              </li>
               <li><%= link_to "Link2", "/path2"  %></li>
               <li><%= link_to "Link3", "/path3"  %></li>
             </ul>
