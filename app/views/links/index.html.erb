@@ -1,6 +1,7 @@
 <%- model_class = Link -%>
 <div class="page-header">
-  <h1><%= @user.present? ? @user.email : 'All'%> links</h1>
+  <h1><%= current_user.present? ? current_user.email : 'All links'%> </h1>
+  
 </div>
 <table class="table table-striped">
   <thead>
