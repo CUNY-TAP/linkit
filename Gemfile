@@ -30,11 +30,12 @@ gem 'jbuilder', '~> 1.2'
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
+
+  gem "twitter-bootstrap-rails", "~> 2.2.8"
+
+  gem 'devise' 
 end
 
-gem "twitter-bootstrap-rails", "~> 2.2.8"
-
-gem 'devise', "~> 3.2.1"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
