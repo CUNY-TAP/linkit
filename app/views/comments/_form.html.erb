@@ -1,0 +1,28 @@
+<%= form_for @comment, :html => { :class => 'form-horizontal' } do |f| %>
+
+<% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+      <ul>
+      <% @comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :text, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :text, :class => 'text_field'%>
+    </div>
+  </div>
+
+  <%= f.hidden_field :post_id, :value => params[:link_id] %>
+  <div class="form-actions">
+
+    <%= f.submit nil, :class => 'btn btn-primary'%>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),comments_path, :class => 'btn' %>
+  </div>
+<% end %>
