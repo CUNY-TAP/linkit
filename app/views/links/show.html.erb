@@ -1,4 +1,11 @@
 <%- model_class = Link -%>
+<!-- Tally total score upon each render -->
+<%- 
+  @tallyscore=0
+  @link.comments.each do |comment|
+    @tallyscore+=comment.score
+  end
+-%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
@@ -10,16 +17,47 @@
   <dd><%= @link.name %></dd>
   <dt><strong>User:</strong></dt>
   <dd><%= @link.user.email if @link.user %></dd>
+  <dt><strong>Link Score:</strong></dt>
+  <dd><%=@tallyscore%></dd>
 </dl>
 
 <div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              links_path, :class => 'btn'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_link_path(@link), :class => 'btn' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              link_path(@link),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+  <!-- Added if else case to check if it's the link's owner before allowing edit/delete option -->
+  <%if @link.user && current_user.email == @link.user.email%>
+    <%= link_to t('.back', :default => t("helpers.links.back")),
+                links_path, :class => 'btn'  %>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                edit_link_path(@link), :class => 'btn' %>
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                link_path(@link),
+                :method => 'delete',
+                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                :class => 'btn btn-danger' %>
+  <%end%>
+</div>
+
+<!-- ADDING COMMENTS HERE -->
+<div class = "page-body">
+
+<h2>Comments</h2>
+<% @link.comments.each do |comment| %>
+  <p>
+    <strong><%=comment.commenter%></strong> says...</br><%= comment.body%> - <%= comment.score %> Points | 
+    <%= link_to("Upvote", :controller=>'comments', :action=>'upvote', :link_id => @link.id, :comment_id=> comment.id)%> | 
+    <%= link_to("Downvote", :controller=>'comments', :action=>'downvote', :link_id => @link.id, :comment_id=> comment.id)%>
+  <p>
+<% end %>
+<h5>Add a comment:</h5>
+  <%= form_for([@link, @link.comments.build]) do |f| %>
+    <p>
+      <%= f.text_area :body %>
+    </br>
+      <%= f.hidden_field :commenter, :value => current_user.email %>
+    </br>
+      <%= f.hidden_field :score, :value => 0 %>
+    </p>
+    <p>
+      <%= f.submit %>
+    </p>
+  <% end %>
 </div>
