@@ -1,0 +1,20 @@
+<%- model_class = Comment -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:text) %>:</strong></dt>
+  <dd><%= @comment.text %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:score) %>:</strong></dt>
+  <dd><%= @comment.score %></dd>
+</dl>
+
+<hr></hr>
+
+<div class="form-actions">
+  
+  <%= link_to t('.back', :default => t("helpers.comments.back")),
+              comments_path, :class => 'btn'  %>
+  
+</div>
