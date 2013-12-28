@@ -1,6 +1,6 @@
 class LinksController < ApplicationController
   before_action :set_link, only: [:show, :edit, :update, :destroy]
-  skip_before_filter  :authenticate_user!, only: [:index]
+  skip_before_filter  :authenticate_user!, only: [:index, :show]
 
   # GET /links
   # GET /links.json
@@ -11,6 +11,7 @@ class LinksController < ApplicationController
   # GET /links/1
   # GET /links/1.json
   def show
+    @comment = Comment.new
   end
 
   def my_links
