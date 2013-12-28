@@ -8,6 +8,8 @@
   <dd><%= @link.url %></dd>
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @link.name %></dd>
+  <dt><strong>User:</strong></dt>
+  <dd><%= @link.user.email if @link.user %></dd>
 </dl>
 
 <div class="form-actions">
