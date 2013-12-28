@@ -1,9 +1,11 @@
 Linkit::Application.routes.draw do
   devise_for :users
-  resources :links
+  resources :links, :comments
   root "links#index"
 
   get "/my_links/:id", controller: "links", action: :my_links, as: :my_links
+  patch "/comments/:id/up_vote", controller: "comments", action: :up_vote, as: :up_vote
+  patch "/comments/:id/down_vote", controller: "comments", action: :down_vote, as: :down_vote
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
