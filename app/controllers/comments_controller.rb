@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
-    @link = Link.new
+    @comment = Comment.new
   end
 
   # GET /comments/1/edit
