@@ -47,3 +47,16 @@ RSpec.configure do |config|
   config.include Capybara::DSL
 
 end
+
+# Helpful funcitons across all integration tests.
+def login(email="test@test.com", password="password")
+    visit "/"
+    click_link "Login"
+
+    within("form") do
+      fill_in "Email", :with => email
+      fill_in "Password", :with => password
+    end
+
+    click_button "Sign in"
+  end
