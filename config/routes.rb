@@ -1,6 +1,14 @@
 Linkit::Application.routes.draw do
   devise_for :users
-  resources :links
+  resources :links do
+    resources :comments do
+      member do
+        get :vote_up
+        get :vote_down
+      end
+    end
+  end
+  
   root "links#index"
 
   get "/my_links/:id", controller: "links", action: :my_links, as: :my_links

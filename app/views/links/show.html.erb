@@ -10,16 +10,63 @@
   <dd><%= @link.name %></dd>
   <dt><strong>User:</strong></dt>
   <dd><%= @link.user.email if @link.user %></dd>
+	<dt><string>Score:</string></dt>
+	<dd><%= @link.score %><dd>
 </dl>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               links_path, :class => 'btn'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_link_path(@link), :class => 'btn' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              link_path(@link),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+	<% if current_user == @link.user %>
+	  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+	              edit_link_path(@link), :class => 'btn' %>
+	  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+	              link_path(@link),
+	              :method => 'delete',
+	              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+	              :class => 'btn btn-danger' %>
+	<% end %>
 </div>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th class="span5">Comment</th>
+			<th>Posted by</th>
+			<th>Score</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+<% @link.comments.each do |comment| %>
+	<tr>
+		<td><%= comment.comment %></td>
+		<td><%= comment.user.email %></td>
+		<td><%= comment.score %></td>
+		<% if user_signed_in? %>
+		<td>
+			<% if current_user == comment.user %>
+				<%= link_to('Vote up', [:vote_up, comment.link, comment]) %>
+				<%= link_to('Vote down', [:vote_down, comment.link, comment]) %>
+				<%= link_to('Delete', [comment.link, comment],
+										method: :delete,
+										data: { confirm: 'Are you sure?' }) %>
+		  <% end %>
+		</td>
+		<% end %>
+	</tr>
+<% end %>
+</table>
+
+<% if user_signed_in? %>
+	<div class="well span6">
+		<%= form_for([@link,@link.comments.build]) do |f| %>
+		  <div class="form-group">
+		    <%= f.label "Add a comment", class: 'control-label' %>
+		    <%= f.text_area :comment, class: 'form-control span12', rows: 5 %>
+			</div>
+		  <div class="form-group">
+		    <%= f.submit "Submit", class: 'btn btn-default' %>
+			</div>
+		<% end %>
+	</div>
+<% end %>

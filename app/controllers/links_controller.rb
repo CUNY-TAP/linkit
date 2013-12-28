@@ -1,6 +1,6 @@
 class LinksController < ApplicationController
   before_action :set_link, only: [:show, :edit, :update, :destroy]
-  skip_before_filter  :authenticate_user!, only: [:index]
+  skip_before_filter  :authenticate_user!, only: [:index, :show]
 
   # GET /links
   # GET /links.json
@@ -38,6 +38,7 @@ class LinksController < ApplicationController
   def create
     @link = Link.new(link_params)
     @link.user = current_user
+    @link.score = 0
 
     respond_to do |format|
       if @link.save
