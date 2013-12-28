@@ -5,13 +5,22 @@
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:url) %>:</strong></dt>
-  <dd><%= @link.url %></dd>
+  <dd><%= link_to @link.url, "http://#{@link.url}", :target => "_blank" %></dd>
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @link.name %></dd>
   <dt><strong>User:</strong></dt>
   <dd><%= @link.user.email if @link.user %></dd>
+  <dt><strong>Score: </strong></dt>
+  <dd><%= @link.score %></dd>
 </dl>
 
+<div>
+  <h5>Comments</h5>
+  <%= render :partial => "display_all_comments" %>
+  <h5>Add a Comment</h5>
+  <%= render :partial => 'comment_form' %>
+
+</div>
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               links_path, :class => 'btn'  %>
