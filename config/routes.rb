@@ -1,6 +1,15 @@
 Linkit::Application.routes.draw do
   devise_for :users
-  resources :links
+  resources :links do
+    resources :comments do
+      member do
+        get :upvote
+        get :downvote
+      end
+    end
+  end
+
+  
   root "links#index"
 
   get "/my_links/:id", controller: "links", action: :my_links, as: :my_links
@@ -45,7 +54,7 @@ Linkit::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

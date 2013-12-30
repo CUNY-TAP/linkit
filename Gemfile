@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0'
+gem 'rails', '4.0.1'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -32,11 +32,19 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem "twitter-bootstrap-rails", "~> 2.2.8"
+gem "twitter-bootstrap-rails"
 
-gem 'devise', "~> 3.2.1"
+gem 'devise'
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0.0.beta'
+  gem 'capybara'
+  gem "factory_girl_rails", "~> 4.3.0"
+end
+
+
 # Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+# gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
 # gem 'unicorn'
