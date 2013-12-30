@@ -49,9 +49,13 @@
           <a class="brand" href='<%=root_path%>'>Linkit</a>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
-              <li><%= link_to "Link1", "/path1"  %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
+              <li >
+                <% if user_signed_in?%>
+                  <%= link_to "Logout", destroy_user_session_path, :method=>:delete%>
+                <%else%>
+                  <%= link_to "Login", new_user_session_path %>
+                <%end%>
+              </li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -64,15 +68,9 @@
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header"><%="Welcome #{current_user.email} | " if user_signed_in?%>
-                <% if user_signed_in?%>
-                  <%= link_to "Logout", destroy_user_session_path, :method=>:delete%>
-                <% else %>
-                  <%= link_to "Login", new_user_session_path %>
-                <%end%>
               </li>
-              <li><%= link_to "Link1", "/path1"  %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
+              <li><%= link_to "My Links", my_links_path(current_user) if current_user.present?  %></li>
+              <li><%= link_to "Home", links_path  %></li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->

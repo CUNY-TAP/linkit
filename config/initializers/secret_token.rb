@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Linkit::Application.config.secret_key_base = 'ab677ac8ec19f2cfce3bd9edb0d01c0b0b348138b28c0c3db8afe4f44f8ba8e6aa2a12047eab10eb6028c55e5b8aac653ada97a19857b7ffe56c93449b013e8c'
+Linkit::Application.config.secret_key_base = '8910da6259ac2038fc0c3fab4d81495c2f6f609b488c43930184c1adf836267a958667789f769e0582f11c37f962255c837c17bb9ee3ae75c2fcf2980d9c5f81'

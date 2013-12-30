@@ -1,7 +1,6 @@
 class LinksController < ApplicationController
   before_action :set_link, only: [:show, :edit, :update, :destroy]
-  skip_before_filter  :authenticate_user!, only: [:index]
-
+  skip_before_filter  :authenticate_user!, only: [:index, :show]
   # GET /links
   # GET /links.json
   def index
@@ -13,7 +12,7 @@ class LinksController < ApplicationController
   def show
   end
 
-  def my_links
+def my_links
     @user = User.find_by_id(params[:id])
     if @user
       @links = @user.links
@@ -23,6 +22,17 @@ class LinksController < ApplicationController
     end
     return
   end
+
+def my_score
+  @link = Link.find(params[:link_id])
+  @link.comments.each do |comment|
+    @totalscore = 0
+    @totalscore += comment.score
+  end
+  @link.score = @totalscore
+  @link.save
+end
+
 
   # GET /links/new
   def new

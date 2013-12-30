@@ -8,18 +8,62 @@
   <dd><%= @link.url %></dd>
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @link.name %></dd>
-  <dt><strong>User:</strong></dt>
-  <dd><%= @link.user.email if @link.user %></dd>
 </dl>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               links_path, :class => 'btn'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_link_path(@link), :class => 'btn' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              link_path(@link),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+  <%if @link.user.present?%>
+    <%if @link.user == current_user%>
+      <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                  edit_link_path(@link), :class => 'btn' %>
+      <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                  link_path(@link),
+                  :method => 'delete',
+                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                  :class => 'btn btn-danger' %>
+    <%end%>
+  <%end%>
+
 </div>
+
+<h2>Add a comment:</h2>
+<%= form_for([@link, @link.comments.build]) do |f| %>
+  <p>
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+
+<h2>Comments</h2>
+<% @link.comments.each do |comment| %>
+  <%if comment.id.present?%>
+    <p>
+      <%= comment.score%>  <strong><%= comment.commenter %></strong>
+    </p>
+   
+    <p> 
+      <%= comment.body %>
+    </p>
+
+    <p>
+      <% if current_user.present? %>
+          <%= link_to("Upvote", :controller=>'comments', :action=>'upvote', :link_id => @link.id, :comment_id=> comment.id)%>
+          <%= link_to("Downvote", :controller=>'comments', :action=>'downvote', :link_id => @link.id, :comment_id=> comment.id)%>
+        <%if comment.commenter == current_user.email%>
+          <%= link_to 'Delete Comment', [comment.link, comment],
+                     method: :delete,
+                     data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %>
+        <%end%>
+      <%end%>
+    </p>
+
+    <p>
+      <strong>____________________________________________________</strong>
+    </p>
+  <%end%>
+<% end %>
+
+
+<% end %>
