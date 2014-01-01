@@ -35,6 +35,18 @@ end
 gem "twitter-bootstrap-rails", "~> 2.2.8"
 
 gem 'devise', "~> 3.2.1"
+
+
+gem 'factory_girl'
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0.0.beta'
+end
+
+group :development, :test do
+  gem 'capybara'
+  gem 'database_cleaner'
+end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
