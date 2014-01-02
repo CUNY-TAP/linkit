@@ -13,6 +13,35 @@ class LinksController < ApplicationController
   def show
   end
 
+  def vote_for_link
+    @link = Link.find(params[:id])
+    current_user.vote_for(@link)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+def vote_up
+    @area = Link.find(params[:id])
+    begin
+      current_user.vote_for(@link)
+      render :nothing => true, :status => 200
+    rescue ActiveRecord::RecordInvalid
+      render :nothing => true, :status => 404
+    end
+  end
+
+  def vote_down
+    @area = Link.find(params[:id])
+    begin
+      current_user.vote_against(@link)
+      render :nothing => true, :status => 200
+    rescue ActiveRecord::RecordInvalid
+      render :nothing => true, :status => 404
+    end
+  end
+
+
   def my_links
     @user = User.find_by_id(params[:id])
     if @user

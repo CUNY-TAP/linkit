@@ -10,6 +10,20 @@
   <dd><%= @link.name %></dd>
   <dt><strong>User:</strong></dt>
   <dd><%= @link.user.email if @link.user %></dd>
+  <dt><strong>Vote:</strong></dt>
+  <dd> <br>
+
+<%= link_to "up-vote", vote_up_link_path(@link.id), :method => :post, :remote=>true, :class=>'up-vote' %><br><br>
+
+             <%= link_to "down-vote", vote_down_link_path(@link.id), :method => :post, :remote=>true, :class=>'down-vote' %><br><br>
+
+
+  </dd>
+
+  <dt><strong>Score:</strong></dt>
+  <dd> <%= @link.plusminus %> </dd>
+
+  <dd>
 </dl>
 
 <div class="form-actions">
@@ -23,3 +37,38 @@
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
 </div>
+
+
+
+<h2>Comments</h2>
+<% @link.comments.each do |comment| %>
+  <p>
+    <strong>Commenter:</strong>
+    <%= comment.commenter %>
+  </p>
+ 
+  <p>
+    <strong>Comment:</strong>
+    <%= comment.body %>
+  </p>
+<% end %>
+
+
+
+<h2>Add a comment:</h2>
+<%= form_for([@link, @link.comments.build]) do |f| %>
+  <p>
+
+    <%= f.hidden_field :commenter, :value => "#{current_user.email}" %>
+  </p>
+  <p>
+    <%= f.label :body %><br />
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+ 
+<%= link_to 'Back', links_path %>
+| <%= link_to 'Edit', edit_link_path(@link) %>
