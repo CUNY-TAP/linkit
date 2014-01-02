@@ -10,6 +10,20 @@
   <dd><%= @link.name %></dd>
   <dt><strong>User:</strong></dt>
   <dd><%= @link.user.email if @link.user %></dd>
+  <dt><strong>Vote:</strong></dt>
+  <dd> <br>
+
+<%= link_to "up-vote", vote_up_link_path(@link.id), :method => :post, :remote=>true, :class=>'up-vote' %><br><br>
+
+             <%= link_to "down-vote", vote_down_link_path(@link.id), :method => :post, :remote=>true, :class=>'down-vote' %><br><br>
+
+
+  </dd>
+
+  <dt><strong>Score:</strong></dt>
+  <dd> <%= @link.plusminus %> </dd>
+
+  <dd>
 </dl>
 
 <div class="form-actions">
@@ -23,6 +37,7 @@
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
 </div>
+
 
 
 <h2>Comments</h2>
