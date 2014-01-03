@@ -1,8 +1,9 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :user do
-  	email "test@test.com"
-  	password "notsecure"
+  factory :comment do
+    comment "MyText"
+    score 1
+    link nil
   end
 end

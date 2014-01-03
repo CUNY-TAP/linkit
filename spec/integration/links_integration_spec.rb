@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe "home page" do
+describe "links" do
   before(:each) do
     FactoryGirl.create(:link)
   end
+
   it "displays all the links" do
- 
     visit "/links"
 
     within("h1") do
@@ -18,7 +18,6 @@ describe "home page" do
 
   it "requires login to create new links" do
     visit "/links"
-
     click_link "New"  	
 
     expect(page).to have_content "You need to sign in or sign up before continuing."
