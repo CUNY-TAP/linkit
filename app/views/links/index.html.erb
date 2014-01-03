@@ -1,22 +1,26 @@
 <%- model_class = Link -%>
 <div class="page-header">
-  <h1><%= @user.present? ? @user.email : 'All'%> links</h1>
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:url) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
-      <th>User</th>
+      <th><%= model_class.human_attribute_name(:user_id) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @links.each do |link| %>
       <tr>
-        <td><%= link_to link.url, link_path(link) %></td>
+        <td><%= link_to link.id, link_path(link) %></td>
+        <td><%= link.url %></td>
         <td><%= link.name %></td>
-        <td><%= link_to link.user.email, my_links_path(link.user) if link.user.present?%></td>
+        <td><%= link.user_id %></td>
+        <td><%=l link.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_link_path(link), :class => 'btn btn-mini' %>

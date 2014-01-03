@@ -1,0 +1,9 @@
+<div class="comment">
+  <i><%=h comment.name %> says:</i><br />
+  <%= simple_format h(comment.body) %>
+  <%= link_to 'Destroy Comment', comment,
+    :confirm => 'Are you sure?',
+    :method => :delete if logged_in? %>
+</div>
+
+<%= render :partial => 'comment', :collection => @post.comments %>

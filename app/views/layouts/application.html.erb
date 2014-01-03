@@ -40,6 +40,7 @@
 
     <div class="navbar navbar-fluid-top">
       <div class="navbar-inner">
+        <div class="navbar navbar-inverse">
         <div class="container-fluid">
           <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
             <span class="icon-bar"></span>
@@ -52,9 +53,11 @@
               <li><%= link_to "Link1", "/path1"  %></li>
               <li><%= link_to "Link2", "/path2"  %></li>
               <li><%= link_to "Link3", "/path3"  %></li>
+              <li><%= link_to "My Links", "/links#my_links_path"  %></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
+      </div>
       </div>
     </div>
 
@@ -73,11 +76,18 @@
               <li><%= link_to "Link1", "/path1"  %></li>
               <li><%= link_to "Link2", "/path2"  %></li>
               <li><%= link_to "Link3", "/path3"  %></li>
+              <li><%= link_to "My Links", "/links#my_links_path"   %></li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
           <%= bootstrap_flash %>
+          <% if notice %>
+  <p class="alert alert-notice"><%= notice %></p>
+<% end %>
+<% if alert %>
+  <p class="alert alert-error"><%= alert %></p>
+<% end %>
           <%= yield %>
         </div>
       </div><!--/row-->

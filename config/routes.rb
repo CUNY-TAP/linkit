@@ -1,10 +1,22 @@
 Linkit::Application.routes.draw do
+<<<<<<< HEAD
+resources :posts do
+  resources :comments, :only => [:create]
+  end
+
+
+
+
+  devise_for :models
   devise_for :users
   resources :links
   root "links#index"
 
   get "/my_links/:id", controller: "links", action: :my_links, as: :my_links
+=======
+>>>>>>> 696b24e6fb02e378e5d7ba3cc39fb06452ae90d7
 
+  root to: "home#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
