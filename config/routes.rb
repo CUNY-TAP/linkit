@@ -1,4 +1,11 @@
 Linkit::Application.routes.draw do
+resources :posts do
+  resources :comments, :only => [:create]
+  end
+
+
+
+
   devise_for :models
   devise_for :users
   resources :links

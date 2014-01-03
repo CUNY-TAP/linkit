@@ -1,8 +1,7 @@
 require 'test_helper'
 
-class LinkTest < ActiveSupport::TestCase
+class CommentTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
-  
 end

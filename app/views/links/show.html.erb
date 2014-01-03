@@ -1,4 +1,4 @@
-<%- model_class = Link -%>
+fv<%- model_class = Link -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
@@ -12,6 +12,29 @@
   <dd><%= @link.user_id %></dd>
 </dl>
 
+<h2>Comments</h2>
+<% @link.comments.each do |comment| %>
+  <p>
+    <strong><%=comment.commenter%></strong> says...</br><%= comment.body%> - <%= comment.score %> Points | 
+    <%= link_to("Upvote", :controller=>'comments', :action=>'upvote', :link_id => @link.id, :comment_id=> comment.id)%> | 
+    <%= link_to("Downvote", :controller=>'comments', :action=>'downvote', :link_id => @link.id, :comment_id=> comment.id)%>
+  <p>
+<% end %>
+<h5>Add a comment:</h5>
+  <%= form_for([@link, @link.comments.build]) do |f| %>
+    <p>
+      <%= f.text_area :body %>
+    </br>
+      <%= f.hidden_field :commenter, :value => current_user.email %>
+    </br>
+      <%= f.hidden_field :score, :value => 0 %>
+    </p>
+    <p>
+      <%= f.submit %>
+    </p>
+  <% end %>
+</div>
+
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               links_path, :class => 'btn'  %>
@@ -23,3 +46,5 @@
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
 </div>
+
+<a class="btn btn-info" href="/links/comment">Comment</a>
