@@ -7,6 +7,9 @@ Linkit::Application.routes.draw do
 
   get "/my_links/:id", controller: "links", action: :my_links, as: :my_links
 
+  get "/comments/voteUp/:id", controller:"comments",action: :voteUp, as: :voteUp
+  get "/comments/voteDown/:id", controller: "comments", action: :voteDown, as: :voteDown
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

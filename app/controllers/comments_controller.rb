@@ -10,6 +10,7 @@ class CommentsController < ApplicationController
   # GET /comments/1
   # GET /comments/1.json
   def show
+    @comment = Comment.find_by_id(params[:id])
   end
 
   # GET /comments/new
@@ -47,6 +48,36 @@ class CommentsController < ApplicationController
       else
         format.html { render action: 'edit' }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /comments/1/voteUp
+  def voteUp
+    @comment = Comment.find_by_id(params[:id])
+    @comment.vote_up
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to @comment.link, notice: 'Voting was successful.' }
+        #format.json { render action: 'show', status: :created, location: @comment }
+      else
+        format.html { redirect_to @comment.link, notice: 'Voting was unsuccessful.' }
+        #format.json { render json: @comment.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /comments/1/voteDown
+  def voteDown
+    @comment = Comment.find_by_id(params[:id])
+    @comment.vote_down
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to @comment.link, notice: 'Voting was successful' }
+        #format.json { render action: 'show', status: :created, location: @comment }
+      else
+        format.html { redirect_to @comment.link, notice: 'Voting was unsuccessful' }
+        #format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
   end

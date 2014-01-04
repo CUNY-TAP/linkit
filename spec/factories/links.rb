@@ -4,5 +4,12 @@ FactoryGirl.define do
   factory :link do
   	url "http://example.com"
   	name "cool link"
+  	score 0
+  end
+
+  factory :link_with_comment, parent: :link do
+  	after(:create) do |link|
+  	  FactoryGirl.create(:comment, link:link)
+  	end
   end
 end
