@@ -6,10 +6,19 @@ describe Comment do
   end
 
   it "belongs to a link" do
-
     link = FactoryGirl.create(:link)
     link.comments << @comment
     @comment.link.should be_present
+  end
+
+  it "has a score" do
+    @comment.score.should be_present
+  end
+
+  it "increments the score" do
+    ## this simulates the vote-up functionality.
+    @comment.vote_up
+    @comment.score.should == 2
   end
 
 end

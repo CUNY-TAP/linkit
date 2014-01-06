@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :link do
           url "www.google.com"
           name "Google"
-          # score 0
+          score 0
   end
 
   factory :link_with_comment, parent: :link do
