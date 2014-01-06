@@ -12,4 +12,5 @@ FactoryGirl.define do
             FactoryGirl.create(:comment, link:link)
           end
   end
+
 end
