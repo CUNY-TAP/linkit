@@ -64,6 +64,18 @@ class LinksController < ApplicationController
     end
   end
 
+  def vote_comment_up
+    @comment = Comment.find_by_id(params[:id])
+    @comment.vote_up
+    redirect_to link_path(@link)
+  end
+
+  def vote_comment_down
+    @comment = Comment.find_by_id(params[:id])
+    @comment.vote_down
+    redirect_to link_path(@link)
+  end
+
   # DELETE /links/1
   # DELETE /links/1.json
   def destroy

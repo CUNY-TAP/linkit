@@ -10,6 +10,8 @@
   <dd><%= @link.name %></dd>
   <dt><strong>User:</strong></dt>
   <dd><%= @link.user.email if @link.user %></dd>
+  <dt><strong>Total Score:</strong></dt>
+  <dd><%= @link.score %></dd>
 </dl>
 
 <h2>Comments</h2>
@@ -23,7 +25,15 @@
     <strong>Comment:</strong>
     <%= comment.body %>
   </p>
-  
+
+  <p>
+    <strong>Score:</strong>
+    <%= comment.score %>
+  </p>
+  <% if current_user%> 
+    <%= link_to "Vote Up", { controller: "links", action: "vote_comment_up", id: comment.id }, :class => 'btn btn-small' %>
+    <%= link_to "Vote Down", { controller: "links", action: "vote_comment_down", id: comment.id }, :class => 'btn btn-small' %>
+  <% end %>  
 <% end %>
 
 <% if current_user%> 

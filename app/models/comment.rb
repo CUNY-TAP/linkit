@@ -5,6 +5,14 @@ class Comment < ActiveRecord::Base
   after_save :update_Parent # could add  if: lambda{self.score_changed?}
   #lambda creates a black box that the program doesn't need to worry about until it runs. 
   #the score_changed method works on an object that's sitting in memory which may not exist just yet
+  after_create :init
+
+  def init 
+    if self.score.nil?
+      self.score = 1
+      self.save
+    end
+  end
 
   def vote_up
   	cumulative_score = self.score += 1
