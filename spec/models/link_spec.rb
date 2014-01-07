@@ -37,7 +37,7 @@ describe Link do
       @link.comments.count.should == 1
     end
 
-    it "updates its cumulative score when a comment gets a score" do
+    it "updates its cumulative score when a comment is voted up" do
       comment = @link.comments.first
       comment2 = FactoryGirl.create(:comment)
       @link.comments << comment2
@@ -49,6 +49,28 @@ describe Link do
       @link.reload ##this is necessary
     
       @link.score.should == 5
+
+      ## This one is tricky. You'll have to have several lines of code here. 
+      ## The idea is that a link with 2 comments, one of a score 2, the other of a score 3, 
+      ## will have a composite score of 5.
+
+      ## A hint is that you may want to leverage the after_save callback of the 
+      ## comment method to maybe update the parent link. 
+    end
+
+    it "updates its cumulative score when a comment is voted down" do
+      comment = @link.comments.first
+      comment2 = FactoryGirl.create(:comment)
+      @link.comments << comment2
+      
+      comment.vote_down #comment score = 0
+      comment2.vote_down #comment2 score = 0
+         
+    
+      @link.save
+      @link.reload ##this is necessary
+    
+      @link.score.should == 0
 
       ## This one is tricky. You'll have to have several lines of code here. 
       ## The idea is that a link with 2 comments, one of a score 2, the other of a score 3, 

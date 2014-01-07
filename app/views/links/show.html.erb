@@ -23,8 +23,10 @@
     <strong>Comment:</strong>
     <%= comment.body %>
   </p>
+  
 <% end %>
 
+<% if current_user%> 
 <h2>Add a comment:</h2>
 
   <%= form_for([@link, @link.comments.build]) do |f| %>
@@ -40,7 +42,7 @@
       <%= f.submit %>
     </p>
   <% end %>
-
+<% end %>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),

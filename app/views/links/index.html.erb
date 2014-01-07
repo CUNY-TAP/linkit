@@ -18,7 +18,9 @@
         <td><%= link.name %></td>
         <td><%= link_to link.user.email, my_links_path(link.user) if link.user.present?%></td>
         <td>
+          <% if current_user%> 
           <%= link_to "Comment", link_path(link), :class => 'btn btn-small btn-info active'%>
+          <% end %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_link_path(link), :class => 'btn btn-small btn-warning active' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

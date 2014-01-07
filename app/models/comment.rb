@@ -12,6 +12,12 @@ class Comment < ActiveRecord::Base
     self.update_attribute(:score,cumulative_score);
   end
 
+  def vote_down
+    cumulative_score = self.score -= 1
+    #self.save  
+    self.update_attribute(:score,cumulative_score);
+  end
+
   def update_Parent #notify_link is a nother name
   	if self.link != nil
   		#self.link.update_Score

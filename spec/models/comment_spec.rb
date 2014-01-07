@@ -21,4 +21,10 @@ describe Comment do
     @comment.score.should == 2
   end
 
+  it "decrements the score" do
+    ## this simulates the vote-up functionality.
+    @comment.vote_down
+    @comment.score.should == 0
+  end
+
 end
