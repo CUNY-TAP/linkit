@@ -49,7 +49,13 @@
           <a class="brand" href='<%=root_path%>'>Linkit</a>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
-              <li><%= link_to "Link1", "/path1"  %></li>
+              
+              <% if current_user%> 
+                  <li><%= link_to "My Links", "/my_links/1"  %></li>
+              <% else %>
+                  <li><%= link_to "Link1", "/path1"  %></li>
+              <%end%>
+
               <li><%= link_to "Link2", "/path2"  %></li>
               <li><%= link_to "Link3", "/path3"  %></li>
             </ul>

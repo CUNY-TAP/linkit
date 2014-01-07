@@ -10,7 +10,49 @@
   <dd><%= @link.name %></dd>
   <dt><strong>User:</strong></dt>
   <dd><%= @link.user.email if @link.user %></dd>
+  <dt><strong>Total Score:</strong></dt>
+  <dd><%= @link.score %></dd>
 </dl>
+
+<h2>Comments</h2>
+<% @link.comments.each do |comment| %>
+  <p>
+    <strong>Commenter:</strong>
+    <%= comment.commenter %>
+  </p>
+ 
+  <p>
+    <strong>Comment:</strong>
+    <%= comment.body %>
+  </p>
+
+  <p>
+    <strong>Score:</strong>
+    <%= comment.score %>
+  </p>
+  <% if current_user%> 
+    <%= link_to "Vote Up", { controller: "links", action: "vote_comment_up", id: comment.id }, :class => 'btn btn-small' %>
+    <%= link_to "Vote Down", { controller: "links", action: "vote_comment_down", id: comment.id }, :class => 'btn btn-small' %>
+  <% end %>  
+<% end %>
+
+<% if current_user%> 
+<h2>Add a comment:</h2>
+
+  <%= form_for([@link, @link.comments.build]) do |f| %>
+    <p>
+      <%= f.label :commenter %><br />
+      <%= f.text_field :commenter %>
+    </p>
+    <p>
+      <%= f.label :body %><br />
+      <%= f.text_area :body %>
+    </p>
+    <p>
+      <%= f.submit %>
+    </p>
+  <% end %>
+<% end %>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
@@ -23,3 +65,4 @@
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
 </div>
+

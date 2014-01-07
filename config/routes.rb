@@ -4,6 +4,13 @@ Linkit::Application.routes.draw do
   root "links#index"
 
   get "/my_links/:id", controller: "links", action: :my_links, as: :my_links
+  
+  resources :links do
+    resources :comments
+  end
+
+  get "/links/vote_comment_up/:id", controller:"links",action: :vote_comment_up, as: :vote_comment_up
+  get "/links/vote_comment_down/:id", controller:"links",action: :vote_comment_down, as: :vote_comment_down
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
