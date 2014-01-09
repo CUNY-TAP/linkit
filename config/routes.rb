@@ -1,8 +1,7 @@
 Linkit::Application.routes.draw do
-  resources :comments
-
   devise_for :users
   resources :links
+  resources :comments
   root "links#index"
 
   get "/my_links/:id", controller: "links", action: :my_links, as: :my_links
