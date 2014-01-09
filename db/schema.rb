@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131115234708) do
+ActiveRecord::Schema.define(version: 20140104123357) do
+
+  create_table "comments", force: true do |t|
+    t.text     "comment"
+    t.integer  "score"
+    t.integer  "link_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["link_id"], name: "index_comments_on_link_id"
 
   create_table "links", force: true do |t|
     t.string   "url"
@@ -19,6 +29,7 @@ ActiveRecord::Schema.define(version: 20131115234708) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "score"
   end
 
   create_table "users", force: true do |t|
